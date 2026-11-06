@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // User profiles: anyone authenticated can read basic profiles, users can only modify their own profile
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if isOwner(userId);
+    }
+
+    // Equipment listings: Anyone can read equipment catalog; only the registered owner can create, update, or delete their equipment
+    match /equipment/{equipmentId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && request.resource.data.ownerId == request.auth.uid;
+      allow update, delete: if isAuthenticated() && resource.data.ownerId == request.auth.uid;
+    }
+
+    // Bookings:
+    // - Farmers can read their own bookings; Equipment owners can read bookings for their equipment
+    // - Farmers can create booking requests
+    // - Only the equipment owner can change status to Approved or Rejected
+    // - Farmer can change paymentStatus or cancel
+    match /bookings/{bookingId} {
+      allow read: if isAuthenticated() && (
+        resource.data.farmerId == request.auth.uid || 
+        resource.data.ownerId == request.auth.uid
+      );
+      allow create: if isAuthenticated() && request.resource.data.farmerId == request.auth.uid;
+      allow update: if isAuthenticated() && (
+        // Equipment owner approving/rejecting booking
+        (resource.data.ownerId == request.auth.uid) ||
+        // Farmer updating payment or cancelling their booking
+        (resource.data.farmerId == request.auth.uid)
+      );
+      allow delete: if isAuthenticated() && (
+        resource.data.farmerId == request.auth.uid ||
+        resource.data.ownerId == request.auth.uid
+      );
+    }
+
+    // Reviews: Anyone can read reviews; only the farmer who booked can write or edit their review
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && request.resource.data.farmerId == request.auth.uid;
+      allow update, delete: if isAuthenticated() && resource.data.farmerId == request.auth.uid;
+    }
+
+    // Notifications: Private to the recipient user
+    match /notifications/{notificationId} {
+      allow read, update, delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated();
+    }
+  }
+}

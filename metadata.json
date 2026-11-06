@@ -1,0 +1,6 @@
+{
+  "name": "KISAN CONNECT",
+  "description": "Farm Equipment Booking Platform connecting farmers with agricultural equipment owners with live availability, GPS search, and AI assistant.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

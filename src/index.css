@@ -1,0 +1,114 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --color-primary: #1E3A2F;
+  --color-primary-hover: #162E25;
+  --color-primary-subtle: #EEF3EE;
+  --color-accent: #B8762E;
+  --color-accent-subtle: #FAF3EA;
+  --color-bg: #F7F9F7;
+  --color-surface: #FFFFFF;
+  --color-surface-hover: #F2F5F2;
+  --color-border: #E2E6E2;
+  --color-text: #19261E;
+  --color-text-muted: #5C6E63;
+  --color-text-subtle: #87998E;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.dark {
+  --color-primary: #326B55;
+  --color-primary-hover: #3E8268;
+  --color-primary-subtle: #192E24;
+  --color-accent: #D2924A;
+  --color-accent-subtle: #2B2114;
+  --color-bg: #101512;
+  --color-surface: #171F1A;
+  --color-surface-hover: #1E2922;
+  --color-border: #233027;
+  --color-text: #E5ECE7;
+  --color-text-muted: #95A69B;
+  --color-text-subtle: #68796E;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Subtle, matte tactile feedback */
+button:active:not(:disabled), a:active {
+  transform: scale(0.985);
+  transition: transform 120ms ease;
+}
+
+/* Matte, clean shadows */
+.shadow-matte-sm {
+  box-shadow: 0 1px 2px 0 rgba(20, 36, 26, 0.04), 0 1px 3px 0 rgba(20, 36, 26, 0.03);
+}
+
+.shadow-matte {
+  box-shadow: 0 1px 3px 0 rgba(20, 36, 26, 0.06), 0 4px 12px 0 rgba(20, 36, 26, 0.04);
+}
+
+.shadow-matte-lg {
+  box-shadow: 0 4px 6px -1px rgba(20, 36, 26, 0.05), 0 10px 24px -3px rgba(20, 36, 26, 0.06);
+}
+
+.dark .shadow-matte-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+.dark .shadow-matte {
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.45);
+}
+
+.dark .shadow-matte-lg {
+  box-shadow: 0 10px 24px 0 rgba(0, 0, 0, 0.6);
+}
+
+/* Custom scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Leaflet map styles */
+.leaflet-container {
+  font-family: 'Inter', sans-serif !important;
+  border-radius: 12px;
+}
+
+.custom-price-pill {
+  background: #FFFFFF;
+  color: #1E3A2F;
+  padding: 4px 9px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 11px;
+  border: 1px solid #D2D8D2;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  transition: all 120ms ease;
+}
+.custom-price-pill.selected {
+  background: #1E3A2F;
+  color: #FFFFFF;
+  border-color: #1E3A2F;
+}
+
+:focus-visible {
+  outline: 2px solid #1E3A2F;
+  outline-offset: 2px;
+}

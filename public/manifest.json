@@ -1,0 +1,26 @@
+{
+  "id": "/",
+  "name": "KISAN CONNECT - Farm Equipment Booking",
+  "short_name": "KisanConnect",
+  "description": "Book tractors, harvesters, drone sprayers and farm equipment from nearby verified owners with live availability and offline sync.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#14532D",
+  "theme_color": "#14532D",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
